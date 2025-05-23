@@ -20,7 +20,7 @@ class Giga:
             'RqUID': '8e681e30-c78a-423e-8ec0-be38078b6f62',
             'Authorization': f'Basic {cls._AUTHORIZATION_KEY}'
         }
-        response = requests.post(url, headers=headers, data=payload)
+        response = requests.post(url, headers=headers, data=payload, verify=False)
 
         return response.json()['access_token']
 
@@ -46,7 +46,7 @@ class Giga:
             'RqUID': '8e681e30-c78a-423e-8ec0-be38078b6f62',
             'Authorization': f'Bearer {access_token}'
         }
-        response = requests.post(url, headers=headers, data=payload)
+        response = requests.post(url, headers=headers, data=payload, verify=False)
 
         return response.json()['choices'][0]['message']['content'], response.json()['usage']['total_tokens']
 
@@ -60,6 +60,6 @@ class Giga:
             'Accept': 'application/jpg',
             'Authorization': f'Bearer {access_token}'
         }
-        response = requests.get(url, headers=headers, data=payload)
+        response = requests.get(url, headers=headers, data=payload, verify=False)
 
         return response.content
