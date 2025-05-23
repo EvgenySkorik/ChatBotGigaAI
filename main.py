@@ -11,7 +11,7 @@ if "token" not in session_state:
         st.toast("Токен успешно получен!")
     except Exception as exc:
         st.toast(f"Нет токена доступа {exc}")
-print('skdfjaskldfjklasjdfk')
+
 if "messages" not in session_state:
     st.session_state.messages = [{"role": "ai", "content": "Чем могу быть полезен?"}]
 
@@ -26,23 +26,22 @@ if user_promt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": user_promt})
 
     with st.spinner("Думаю..."):
-        responce = Giga.send_promt(st.session_state.token, user_promt)
+        responce, total_tokens = Giga.send_promt(st.session_state.token, user_promt)
         data, img_id, is_image = get_src(responce)
-        st.toast(f"dat{data}, id{img_id}, is{is_image} ")
+
         if is_image:
             resp = Giga.get_images(st.session_state.token, img_id)
             st.chat_message("ai").image(resp)
+            st.chat_message("ai").write(data)
+            st.toast(total_tokens)
             st.session_state.messages.append({"role": "user", "content": resp, "is_image": True})
+            st.session_state.messages.append({"role": "ai", "content": data})
         else:
             st.chat_message("ai").write(data)
-            st.session_state.messages.append({"role": "user", "content": data})
+            st.toast(total_tokens)
+            st.session_state.messages.append({"role": "ai", "content": data})
 
 
-#
-#
-# res = Giga.send_promt(token, "Приветики")
-#
-# print(res)
 
 
 
