@@ -1,4 +1,5 @@
-*.toml
+# created by virtualenv automatically
 .streamlit/secrets.toml
-venv/
-.*
+venv/bin
+
+

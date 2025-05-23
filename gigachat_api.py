@@ -63,17 +63,3 @@ class Giga:
         response = requests.get(url, headers=headers, data=payload)
 
         return response.content
-
-    # @classmethod
-    # def get_tokens(cls, access_token: str, data: str):
-    #     url = f"https://gigachat.devices.sberbank.ru/api/v1/files/{img_id}/content"
-    #
-    #     payload = {}
-    #
-    #     headers = {
-    #         'Accept': 'application/jpg',
-    #         'Authorization': f'Bearer {access_token}'
-    #     }
-    #     response = requests.get(url, headers=headers, data=payload)
-    #
-    #     return response.content
